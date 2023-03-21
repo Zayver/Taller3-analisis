@@ -10,12 +10,14 @@ template<typename _T>
 void run(const std::string & fileName){
     auto data = utils::readFile<_T>(fileName);
     auto P = utils::buildHistogram(data);
+    auto K = utils::generateTypes<_T>();
     utils::Frequency<_T> f = utils::findFrequencies(data, P);
 
     std::vector<double> Q(P.size() + 1, 0);
 
-    RbTree<_T> rbtree {data};
-    ObTree obtree {P, Q};
+    RbTree<_T> rbtree {K};
+    ObTree<_T> obtree {P, Q, data};
+    std::cout << "Costo OBTREE: " << obtree.build() << '\n';
     std::cout << "=====Resumen=====\n"
 
         << "Tamaño del mensaje: "<<data.size()<< '\n'
@@ -26,18 +28,11 @@ void run(const std::string & fileName){
         << "Tiempo de búsqueda elemento menor: "<< timer::measure(rbtree, f.minElem, TEST_TIMES)<<"ns"<<'\n'
         << "Tiempo de búsqueda elemento Mayor: "<< timer::measure(rbtree, f.maxElem, TEST_TIMES)<<"ns"<<'\n'
         << "-------Optimal Tree-------\n"
-        << "Elemento Mínimo: '"<< f.minElem<<"' ,frecuencia = "<<f.minFrequency << ", produndidad = "<< rbtree.depth(f.minElem)<<'\n'
-        << "Elemento Máximo: '"<< f.maxElem<<"' ,frecuencia = "<<f.maxFrequency << ", produndidad = "<< rbtree.depth(f.maxElem)<<'\n'
-        << "Tiempo de búsqueda elemento menor: "<< timer::measure(rbtree, f.minElem, TEST_TIMES)<<"ns"<<'\n'
-        << "Tiempo de búsqueda elemento Mayor: "<< timer::measure(rbtree, f.maxElem, TEST_TIMES)<<"ns"<<'\n'
-
-
-        <<"DEBUG: \n"
-        << obtree.build();
+        << "Elemento Mínimo: '"<< f.minElem<<"' ,frecuencia = "<<f.minFrequency << ", produndidad = "<< obtree.depth(f.minElem)<<'\n'
+        << "Elemento Máximo: '"<< f.maxElem<<"' ,frecuencia = "<<f.maxFrequency << ", produndidad = "<< obtree.depth(f.maxElem)<<'\n'
+        << "Tiempo de búsqueda elemento menor: "<< timer::measure(obtree, f.minElem, TEST_TIMES)<<"ns"<<'\n'
+        << "Tiempo de búsqueda elemento Mayor: "<< timer::measure(obtree, f.maxElem, TEST_TIMES)<<"ns"<<'\n'
         ;
-
-    //RBtree
-
 }
 
 int main(int argc, char * argv[]){

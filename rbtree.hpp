@@ -1,7 +1,5 @@
 #include <algorithm>
-#include <iostream>
 #include <set>
-#include <stdexcept>
 #include <utility>
 #include <vector>
 
@@ -13,7 +11,7 @@ template <typename _T> class RbTree {
     setType tree;
     
   public:
-    RbTree(const vectorType data) {
+    RbTree(const vectorType &data) {
         this->data = data;
         tree.insert(this->data.begin(), this->data.end());
     }

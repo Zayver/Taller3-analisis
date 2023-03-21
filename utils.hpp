@@ -4,7 +4,7 @@
 #include <limits>
 #include <utility>
 #include <vector>
-#include <iostream>
+#include <numeric>
 
 namespace utils {
 
@@ -69,5 +69,14 @@ Frequency<_T> findFrequencies(const std::vector<_T> &data,
         min,
         *max,
     };
+}
+
+template <typename _T>
+std::vector<_T> generateTypes(){
+    std::vector<_T> vec(1 << (sizeof(_T) << 3));
+    for(int i = 0; i < vec.size(); i++ ){
+        vec[i] = static_cast<_T>(i);
+    }
+    return vec;
 }
 } // namespace utils
