@@ -222,7 +222,6 @@ template <typename _T> class ObTree {
     int depth(_T elem) {
         int counter = 0;
         nodeType aux = this->root;
-        assert(aux != nullptr);
         while (aux != nullptr) {
             if (aux->data == elem) {
                 return counter;

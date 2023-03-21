@@ -3,7 +3,7 @@
 - Santiago Zúñiga
 - Mauren Ribera
 
-# Ejecución
+# Compilación
 
 ```console
 # En la raíz del proyecto
@@ -11,9 +11,16 @@ make
 # En caso de no estar en un sistema Unix
 g++ main.cpp -o arbol -std=c++11
 ```
-Se ejecuta mediante el shell de bash el script de python y posteriormente a su finalización, se muestra la gráfica generada con gnuplot
+
+# Ejecución
+
+```console
+# En la raíz del proyecto
+./arbol [nombre_archivo] [byte|word]
+```
+Se adjunta un pdf de prueba para testeo
+
 
 ## Dependencias
 
 - gcc 
-- gnuplot
